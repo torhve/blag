@@ -1,9 +1,11 @@
 # Using salt to generate configuration for remote checks
 
-Who likes writing icinga configuration ? Certainly not me. But I have a configuration management and remote execution system called *Salt* that can help me alleviate my pain. 
+##### This is part #2 in my series about salt and icinga. Check out [part #1](http://hveem.no/2013/01/05/salt-icinga-nrpe-replacement)
+
+Who likes writing icinga configuration ? Certainly not me. But I have a configuration management and remote execution system called **Salt** that can help me alleviate my pain. 
 The two pronged attack consists of:
 
-- a Salt module for NRPE, it reads the nrpe.cfg on each minion and returns with the dfined checks
+- a Salt module for NRPE, it reads the nrpe.cfg on each minion and returns with the defined checks
 - a python script that interacts with the salt peer interface to run the list_checks funciton in the nrpe module
 
 The gen\_icinga\_conf.py script should be run on the icinga server, it publishes the command nrpe.list_checks (which the master must have configuration to allow it) and then spits out icinga configuration to stdout.
@@ -87,4 +89,24 @@ The weak part about this solution is that it requires every minion with NRPE con
         print '\n'.join(conf)
 
     generate_conf()
+
+Let's see if it works:
+
+    # python gen_conf.py
+
+    define service {
+        use                    generic-service
+        host_name              icinga 
+        active_checks_enabled  0
+        service_description    check_ntp
+        check_command          check_nrpe_1arg!check_ntp
+    }
+    define service {
+        use                    generic-service
+        host_name              icinga 
+        active_checks_enabled  0
+        service_description    check_ntp
+        check_command          check_nrpe_1arg!check_ntp
+    }
+
 

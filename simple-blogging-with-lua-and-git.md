@@ -16,7 +16,7 @@ Let me begin by listing the components being used:
 -  [Markdown](http://en.wikipedia.org/wiki/Markdown) Lightweight markup language.
 
 
-Now we know the components in use, so now I can explain how they work togheter. Lua runs inside nginx and is being used as backend as it is being called in the web developer world. There is little to no javascript running in this setup. The backend loads a few templates (header, footer, etc) using Zed Shaw's tiny templating engine from another micro framework in Lua, check it out here: [http://sheddingbikes.com/posts/1289384533.html](Tir Microframework)
+Now we know the components in use, so now I can explain how they work togheter. Lua runs inside nginx and is being used as backend as it is being called in the web developer world. There is little to no javascript running in this setup. The backend loads a few templates (header, footer, etc) using Zed Shaw's tiny templating engine from another micro framework in Lua, check it out here: [Tir Microframework](http://sheddingbikes.com/posts/1289384533.html)
 
 The index template looks in the predefined git repository for a list for markdown files, these will be the blog posts, then it runs git log to figure out the date the blog post was created and displays a list.
 
@@ -225,6 +225,6 @@ Publishing a new article is then just the small matter of writing a Markdown fil
     }              
 
 ## Source
-You can find the source at [https://github.com/torhve/LuaWeb](my github repository for this project).
+You can find the source at [my github repository for this project](https://github.com/torhve/LuaWeb).
 
 
