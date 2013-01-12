@@ -2,7 +2,7 @@ How I created a minimalistic blog platform with lua
 ======
 
 My motivation was just having a simple no frills blog for publishing some of my latest writings. I have also worked a bit with Wordpress lately, and I wanted to play with a comepletely different software stack. This project is not very serious and is meant for personal use.
-The most unusual part about this project is it's usage of nginx as the "app server". This is possible using lua, since there is a nginx lua module that enables you to call lua from the nginx conf. Have a look at [http://openresty.org](openresty's site) for more about what it enables you to do.
+The most unusual part about this project is it's usage of nginx as the "app server". This is possible using lua, since there is a nginx lua module that enables you to call lua from the nginx conf. Have a look at [openresty's site](http://openresty.org) for more about what it enables you to do.
 
 Let me begin by listing the components being used:
 
