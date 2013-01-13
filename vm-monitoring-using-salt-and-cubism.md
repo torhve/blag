@@ -178,3 +178,5 @@ As you can see, most of my VMs in my test cluster are fairly idle. The default i
 *Net Usage*
 ![Net Usage Screenshot](http://hveem.no/ss/salt-virt-net-monitor.png)
 
+*Update: Check out [Part #2](/salt-returner-for-carbon) for getting stateful graphing
+
