@@ -1,6 +1,6 @@
 # Using salt to feed the graphite carbon daemon
 
-*Part #2 in the VM visualisations series using salt. Read [Part #1](/vm-monitoring-using-salt-and-cubism)
+*Part #2 in the VM visualisations series using salt. Read [Part #1](/vm-monitoring-using-salt-and-cubism)*
 
 I deemed my experiment in Part #1 a success, but it had a huge drawback in not keeping any state, it was only refreshing fresh data all the time. It also would not scale for multi user, because the fetching would be too heavy for many users to be monitoring simultaneously. Thus I had a new goal, separate the metric retrieving from the metric displaying. The plan is to collect metrics using [Salt](http://saltstack.org) and its [Returner](http://docs.saltstack.org/en/latest/ref/returners/index.html) component. Returners makes the salt published commands return data using a different route than back to the publisher (master). But first I had to choose a backend.
 
@@ -13,7 +13,7 @@ Cube has a mongodb + node stack. Graphite is built using python components whisp
 
 A simple diagram of the flow of this setup:
     
-     The salt server                  All the minions                 The graphite sever
+     The salt server                 targetted minions                The graphite sever
     +----------------+             +------------------+      salt    +------------------+
     |                |             |                  |    returner  |                  |
     |  salt master   +---zeromq---->   salt minion    +-   TCP:2033 ->   carbon daemon  |
@@ -143,9 +143,33 @@ Carbon supports two protocols and pickle, I struggled abit with getting pickle t
 
 The carbon returner has a weak point in its design, it only supports one type of data, dicts within dicts, since that was all I had to support to get my virt module metrics into carbon. One thing it could be easily extended to do is parse output from all the existing munin plugins, or collected plugins. But lets not get ahead of ourselves, lets see if the runner works.
 
-I decided on a simple 10 second timer for pushing data, that seemed granular enough for my purposes. So I just ran a simple zsh loop that runs the salt command virt.vm_cputime on my KVM nodegroup, and specify that I want to return the data to the carbon returner.
+I decided on a simple 10 second timer for pushing data, that seemed granular enough for my purposes. Turns out salt got support for running scheduled command this weekend, and it will be featured in the upcoming 0.12-release. Eager to get my data scheduled I fetched latest git and wrote a quick runner to be scheduled on the master:
 
-    while true; do sleep 10; salt -N 'kvm' virt.vm_cputime --return carbon; done
+> /etc/salt/master
+    
+    schedule:
+      vmmon:
+         function: carbonmon.pollpush
+         seconds: 10
+
+### The runner
+
+This runner just publishes the commands to be run in an async fashion. No data is returned to the master. I use a simple list to specify my virt hosts.
+
+> salt/runners/carbonmon.py
+
+    import salt.client
+    import sys
+
+    def pollpush():
+        '''
+        Run the monitoring command and return to carbon
+        '''
+        client = salt.client.LocalClient(__opts__['conf_file'])
+        cmds = ('virt.vm_diskstats', 'virt.vm_netstats', 'virt.vm_cputime')
+        nodes = 'chani,harkonnen,fremen'
+        for cmd in cmds:
+            jid = client.cmd_async(nodes, cmd, expr_form='list', ret='carbon', timeout=__opts__['timeout'])
 
 **et voilà!** metrics are now persisted by the graphite stack. And I can now return to my client and rewrite cubism client to use graphite backend.
 
@@ -193,3 +217,8 @@ The graphite queries include wildcard support, so I could easily get graphs for 
 
             });
     });
+
+And now I have persistent metrics with a very simple way to visualize them in my VM monitor web front end. 
+
+###### Screenshot of the CPU usage monitor
+![CPU Usage Screenshot](http://hveem.no/ss/salt-virt-cpu-monitor-carbon.png)
