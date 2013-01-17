@@ -224,6 +224,8 @@ Publishing a new article is then just the small matter of writing a Markdown fil
       }
     }              
 
+Read the [followup](/redis-lua-backed-git-blogging), where I change the backend a bit to use redis.
+
 ## Source
 You can find the source at [my github repository for this project](https://github.com/torhve/LuaWeb).
 
