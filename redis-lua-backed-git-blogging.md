@@ -1,6 +1,6 @@
 # Simple blog platform backed by lua, redis, nginx and git
 
-Previously I wrote about [my simple blog software that used git as database](/simple-blogging-with-lua-and-git). But after a while I found myself wanting not to ruin LuaJIT's fantastic speed by spawning git commands for every visitor. And since I was using [Redis](http://redis.io/) for a silly visitor counter already it seemed silly not to leverage it in some way. [@Graaten](http://twitter.com/graaten) had this brilliant idea to have a git hook that generates the data needed by the blog upon commit. 
+Previously I wrote about [my simple blog software that used git as database](/simple-blogging-with-lua-and-git). But after a while I found myself wanting not to ruin LuaJIT's fantastic speed by spawning git commands for every visitor. And since I was using [Redis](http://redis.io/) for a silly visitor counter already it seemed like a waste not to leverage it in some way. [@Graaten](http://twitter.com/graaten) had this brilliant idea to have a git hook that generates the data needed by the blog upon commit. 
 
 So I set out to write a simple bash [Git](http://git-scm.com/) post hook that turns the list of [Markdown](http://en.wikipedia.org/wiki/Markdown)-files into a JSON list of commit logs and then feed that into Redis with the redis-cli command.
 
@@ -10,7 +10,7 @@ The shell script is fairly well commented so it should be self explanatory :)
 
 > md/.git/hooks/post-commit
 
-    !/bin/bash
+    #!/bin/bash
     # Author: Tor Hveem
 
     # Loop through each markdown file
@@ -20,7 +20,6 @@ The shell script is fairly well commented so it should be self explanatory :)
         REDIS_KEY="post:$TITLE:log" 
         # get json log output with unix timestamp date
         OUTPUT=$(exec git log --pretty=format:"'%h': {'commit': '%H','author': '%an <%ae>',  'timestamp': %ct,  'message': '%s'}" -- $FILE)
-        echo "$OUTPUT"
         # Switch linesbreaks to , with goal to eventually make a list
         OUTPUT=$(echo $OUTPUT | tr "\n" ",")
         # Strip last ,
@@ -66,165 +65,8 @@ Or if it gets a date back, it opens the file and compiles the markdown.
     local mdcontent = mdfilefp:read('*a')
     local mdhtml = markdown(mdcontent) 
 
-The next steps for increasing performance now will be to either have markdown generated on git commit too, or have it generated on first visit and then saved to redis for all the next visit. With a check in the commit log json data for any updates and thus needing regeneration.
+The next steps for increasing performance now will be to either have markdown generated on git commit too, or have it generated on first visit and then saved to redis for all the next visit. That method would need check in the commit log json data for any updates and thus needing regeneration.
 
 ## Source
 You can find the source at [my github repository for this project](https://github.com/torhve/LuaWeb).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
