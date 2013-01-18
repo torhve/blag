@@ -41,7 +41,9 @@ I'm using the Redis datatype of Sorted Set for the post list. With the title as 
 The function to get list of blog posts with date is as simple as this:
 > index.lua
 
-    -- Return a table with post date as key and title as val
+    --[[ 
+    Return a table with post date as key and title as val
+    ]]
     local function posts_with_dates(limit)
         local posts, err = red:zrevrange('posts', 0, limit, 'withscores')
         if err then return {} end
