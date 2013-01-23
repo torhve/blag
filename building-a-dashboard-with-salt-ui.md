@@ -1,6 +1,6 @@
 # How to build a simple dashboard with Salt UI
 
-This week the guys at [SaltStack](http://saltstack.org) cut the first developer release of [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](Salt UI). Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project yet but I wanted to see how I could build a simple self service dashboard for our company's web team.
+This week the guys at [SaltStack](http://saltstack.org) cut the first developer release of [Salt UI](https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html). Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project yet but I wanted to see how I could build a simple self service dashboard for our company's web team.
 
 Impatient readers will want to check out the screenshots at the bottom first.
 
@@ -16,7 +16,7 @@ The goal is thus defined to be a simple dashboard with 4 functions.
 ## Prerequisites
 
 This howto assumes you have a working salt ecosystem, including latest git versions of salt API and salt UI.
-For a quick rundown over the salt UI architecture and concepts, check out [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](this page)
+For a quick rundown over the salt UI architecture and concepts, check out [this page](https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html)
 
 ## Salt UI changes
 
