@@ -323,10 +323,13 @@ Change the tree.js color-function to look like this:
         return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
     }
 
-## [Screenshots][Screenshots]
+## Screenshots
 
-*The dashboard welcome screen*
+[Screenshots]: /  "Screenshots"
+
+
+#### The dashboard welcome screen ####
 ![Dashboard welcome screen](http://hveem.no/ss/salt-ui-dash.png)
-*The dashboard tree displaying the state output*
+#### The dashboard tree displaying the state output ####
 ![Dashboard change tree](http://hveem.no/ss/salt-ui-dash-tree.png)
 
