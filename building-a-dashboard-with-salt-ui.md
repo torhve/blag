@@ -1,6 +1,6 @@
 # How to build a simple dashboard with Salt UI
 
-This week the guys at SaltStac Inc cut the first developer release of Salt UI. Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project but I wanted to see how I could build a simple self service dashboard for our company's web team. 
+This week the guys at [SaltStack](http://saltstack.org) cut the first developer release of [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](Salt UI). Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project but I wanted to see how I could build a simple self service dashboard for our company's web team.
 
 Impatient readers will want to check out the [screenshots](#Screenshots) at the bottom first.
 
@@ -16,6 +16,7 @@ The goal is thus defined to be a simple dashboard with 4 functions.
 ## Prerequisites
 
 This howto assumes you have a working salt ecosystem, including latest git versions of salt API and salt UI.
+For a quick rundown over the salt UI architecture and concepts, check out [this page](https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html)
 
 
 ## Salt UI changes
@@ -322,10 +323,10 @@ Change the tree.js color-function to look like this:
         return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
     }
 
-## Screenshots
+## [Screenshots][Screenshots]
 
-* The dashboard welcome screen *
+*The dashboard welcome screen*
 ![Dashboard welcome screen](http://hveem.no/ss/salt-ui-dash.png)
-* The dashboard tree displaying the state output *
+*The dashboard tree displaying the state output*
 ![Dashboard change tree](http://hveem.no/ss/salt-ui-dash-tree.png)
 
