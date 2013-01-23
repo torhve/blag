@@ -1,6 +1,6 @@
 # How to build a simple dashboard with Salt UI
 
-This week the guys at [SaltStack](http://saltstack.org) cut the first developer release of [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](Salt UI). Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project but I wanted to see how I could build a simple self service dashboard for our company's web team.
+This week the guys at [SaltStack](http://saltstack.org) cut the first developer release of [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](Salt UI). Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project yet but I wanted to see how I could build a simple self service dashboard for our company's web team.
 
 Impatient readers will want to check out the screenshots at the bottom first.
 
@@ -16,7 +16,7 @@ The goal is thus defined to be a simple dashboard with 4 functions.
 ## Prerequisites
 
 This howto assumes you have a working salt ecosystem, including latest git versions of salt API and salt UI.
-For a quick rundown over the salt UI architecture and concepts, check out [this page](https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html)
+For a quick rundown over the salt UI architecture and concepts, check out [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](this page)
 
 ## Salt UI changes
 
@@ -33,7 +33,7 @@ Open up the routes file, and add the new route called dash, which points to tmpl
         type: 'full',
     });
 
-Then add the dasboard HTML template. The structure is using the Bootstrap for layout. The thing to note in this html is the tag <x-dashexec></x-dashexec>. This is a "magic" tag that we will use later on.
+Then add the dasboard HTML template. The structure is using the Bootstrap for layout. The thing to note in this html is the tag \<x-dashexec\>\<\/x-dashexec\>. This is a "magic" tag that we will use later on.
 
 > tmpl/dash.html
     <div id="wrap">
@@ -329,3 +329,4 @@ Change the tree.js color-function to look like this:
 #### The dashboard tree displaying the state output ####
 ![Dashboard change tree](http://hveem.no/ss/salt-ui-dash-tree.png)
 
+Thank you for reading, feel free to email/twitter comments and/or suggestions !
