@@ -248,9 +248,6 @@ The template goes along with this javascript to let the magic happen
         var exec = {
             content: template,
 
-            /**
-            View-model info of interest to this element or it's children
-            **/
             onCreate: function() {
                 this.xtag.inprogress = false;
 
@@ -259,8 +256,7 @@ The template goes along with this javascript to let the magic happen
 
             events: {
                 /**
-                Submit the execution form via Ajax and fire a custom notification
-                with the job ID that is returned for other components to act on.
+                Submit the execution form via Ajax and draw the result using d3 drawtree
                 **/
                 submit: function(e) {
                     e.preventDefault();
