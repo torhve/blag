@@ -2,7 +2,7 @@
 
 This week the guys at [SaltStack](http://saltstack.org) cut the first developer release of [https://salt-ui.readthedocs.org/en/latest/topics/releases/0.5.0.html](Salt UI). Salt UI is a framework for building web applications that interfaces with Salt using Salt API. It is not yet a mature project but I wanted to see how I could build a simple self service dashboard for our company's web team.
 
-Impatient readers will want to check out the [screenshots](#Screenshots) at the bottom first.
+Impatient readers will want to check out the [Screenshots][Screenshots] at the bottom first.
 
 ## Goal
 
@@ -325,7 +325,7 @@ Change the tree.js color-function to look like this:
 
 ## Screenshots
 
-[Screenshots]: /  "Screenshots"
+[Screenshots]: /building-a-dashboard-with-salt-ui "Screenshots"
 
 
 #### The dashboard welcome screen ####
