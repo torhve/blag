@@ -4,9 +4,9 @@ This week the guys at [SaltStack](http://saltstack.org) cut the first developer 
 
 Impatient readers will want to check out the screenshots at the bottom first.
 
-## End goal
+## Goals
 
-The goal is thus defined to be a simple dashboard with 4 functions.
+The goal is to build a simple dashboard with 4 functions.
 
 -    Refresh salt pillars
 -    Create git repositories
@@ -33,7 +33,7 @@ Open up the routes file, and add the new route called dash, which points to tmpl
         type: 'full',
     });
 
-Then add the dasboard HTML template. The structure is using the Bootstrap for layout. The thing to note in this html is the tag \<x-dashexec\>\<\/x-dashexec\>. This is a "magic" tag that we will use later on.
+Then add the dasboard HTML template. The structure is using the Bootstrap for layout. The thing to note in this html is the tag \<x-dashexec\>. This is a "magic" tag that we will use later on.
 
 > tmpl/dash.html
     <div id="wrap">
@@ -116,7 +116,7 @@ And then add the styles for the dasboard:
         min-height: 100%;
         height: auto !important;
         height: 100%;
-        /* Negative indent footer by it's height */
+        /* Negative indent footer by its height */
         margin: 0 auto -60px;
 
         .page-header {
@@ -175,7 +175,7 @@ Lets add our new tag for dashboard. Find the elem_map variable and add the new e
         modal:          require('elements/modal/modal'),
     };
 
-Then it's time to write javascript and template for our new custom element dashexec. I made 4 buttons, 1 for each of the wanted opertations. The trained eye will quickly see that the buttons specify which targets, module functions and with what args the salt commands should be ran.
+Now it is time to write javascript and template for our new custom element dashexec. I made 4 buttons, 1 for each of the wanted opertations. The trained eye will quickly see that the buttons specify which targets, module functions and with what args the salt commands should be ran.
 
 > js/elements/dashexec/template.html
 
