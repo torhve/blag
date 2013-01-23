@@ -299,7 +299,7 @@ The template goes along with this javascript to let the magic happen
         return exec;
     });
 
-Drawtree is the function that turns the output from salt into a tree. Think of it as a salt outputter for web. I modified the default tree a tiny bit to put some colors on result and changes, so the people pushing the buttons easily can see if every change went OK and what was changed. Much can be done with this outputter to render beautiful visualization on the changes.
+Drawtree is the function that turns the output from salt into a graphical tree. Think of it as a salt outputter for web. I modified the default tree a tiny bit to put some colors on result and changes, so the people pushing the buttons easily can see if every change went OK and what was changed. Much can be done with this outputter to render beautiful visualization on the changes.
 Change the tree.js color-function to look like this:
 
 > tree.js
