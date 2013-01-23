@@ -33,7 +33,7 @@ Open up the routes file, and add the new route called dash, which points to tmpl
         type: 'full',
     });
 
-Then add the dasboard HTML template. The structure is using the Bootstrap for layout. The thing to note in this html is the tag \<x-dashexec\>. This is a "magic" tag that we will use later on.
+Then add the dasboard HTML template. The structure is using the Bootstrap for layout. The thing to note in this html is the tag &lt;x-dashexec&gt;. This is a "magic" tag that we will use later on.
 
 > tmpl/dash.html
     <div id="wrap">
