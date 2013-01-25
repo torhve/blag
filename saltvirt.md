@@ -6,7 +6,8 @@ My motivation was something more loosely coupled, easy to install (relatively), 
 It's also meant to showcase the power of Salt combined with Salt API for builing neat interfaces on top of complex infrastructure
 The current featurelist is pretty short, it's basically just overview over hosts and VMs, simple VM control (console, start, stop). The most advanced feature is probably the drag &amp; drop of a VM onto a host to do live migration of a VM
 The status of this is a the Proof of Concept stage, it's by no means any feature complete or mature contender to other solutions listed above. But I wanted to show that by relatively little effort one can build powerful solutions based on all the existing free software in this area by using Salt as the glue.
-PS! There are screenshots at the bottom!
+
+*PS! There are screenshots at the bottom!*
 
 ## Components
 - Physical host(s) running Ubuntu
