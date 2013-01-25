@@ -1,4 +1,4 @@
-How I made a HTML5 virtualization UI on top of Salt Stack
+# How I made a HTML5 virtualization UI on top of Salt Stack
 *AKA my libvirt cluster webgui proof of concept*
 
 Virtualization! Sorry, I meant **Cloud**! is probably the right word to use in these times, and every sysadmin, sorry, I mean DEVOPS-guy needs to write their own cloud solution, right? This page will explain how I built my small virtulization cluster using different free software tools. There exists a bunch of different free software solutions in this space already, [OpenStack](http://openstack.org) [oVirt](http://ovirt.org), [Archipel](http://archipelproject.org/), [Proxmox](http://proxmox.com/) [Ganeti](https://code.google.com/p/ganeti/). Some of these are based on libvirt, some are not. Some have invented their own communcation bus/agents. Most of them assume full control over your stack. They have varying requirements of your storage solution. Varying degree of requirements of the management server.
