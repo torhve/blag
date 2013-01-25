@@ -1,6 +1,6 @@
 # Using salt to generate configuration for remote checks
 
-##### This is part #2 in my series about salt and icinga. Check out [part #1](http://hveem.no/2013/01/05/salt-icinga-nrpe-replacement)
+##### This is part #2 in my series about salt and icinga. Check out [part #1](/salt-icinga-nrpe-replacement)
 
 Who likes writing icinga configuration ? Certainly not me. But I have a configuration management and remote execution system called **Salt** that can help me alleviate my pain. 
 The two pronged attack consists of:
