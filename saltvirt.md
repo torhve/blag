@@ -10,9 +10,11 @@ The status of this is a the Proof of Concept stage, it's by no means any feature
 *PS! There are screenshots at the bottom!*
 
 ## Components
+
 - Physical host(s) running Ubuntu
 - [Salt Stack](http://saltstack.org) with [Salt API](https://github.com/saltstack/salt-api)
 - My proof of concept single page web GUI
+
 I write Ubuntu as a component since the states I use are using ubuntu-packagenames and ubuntu-servicenames and other assumptions made in the state-files. They can certainly be improved to support other targets
 [Salt Stack](http://saltstack.org) is the piece of software that runs the show in this little setup. Salt is a configuration management and remote execution system. Salt API is a relatively recent addition to the Salt family that enables you to interface to the salt states/modules/commands using a REST API. The result is a very convenient way to write simple web applications to provide information and manage your underlying technology
 The PoC webGUI is a simple bootstrap-based page with a lot of "manual" jquery going on to interface with Salt API. I had to include [Handlebar JS](http://handlebarjs.com/) to atleast get some simple templating capabilities
