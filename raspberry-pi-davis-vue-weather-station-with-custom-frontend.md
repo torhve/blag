@@ -166,6 +166,6 @@ Alter pga_hba.conf to allow connection for IP
 #### The Raspberry PI connected to a wireless repeater, a web camera and the weather station console
 ![The weather station console and raspberry pi](http://hveem.no/weatherconsole.jpg)
 
-You can visit the weather site at <http://yr.hveem.no/>
+You can visit the weather site at [yr.hveem.no](http://yr.hveem.no/)
 
 
