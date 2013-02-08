@@ -155,7 +155,7 @@ Alter pga_hba.conf to allow connection for IP
 
 1. Start weewx and check that it's logging OK
 
-1. Install AmatYr on the web server
+1. Install [AmatYr](http://github.com/torhve/amatyr) on the web server
 
 ## A few pictures of the setup
 
@@ -165,5 +165,7 @@ Alter pga_hba.conf to allow connection for IP
 ![The wireless antenna to send the signal back home](http://hveem.no/antenne.jpg)
 #### The Raspberry PI connected to a wireless repeater, a web camera and the weather station console
 ![The weather station console and raspberry pi](http://hveem.no/weatherconsole.jpg)
+
+You can visit the weather site at <http://yr.hveem.no/>
 
 
