@@ -157,12 +157,12 @@ Alter pga_hba.conf to allow connection for IP
 
 1. Install AmatYr on the web server
 
-### A few pictures of the setup
+## A few pictures of the setup
 
 #### My dad installing the weather sensore suite
 ![The weather station sensor](http://hveem.no/davis.jpg)
 #### The wireless antenna for sending the signal to the internets
-![The wireless antenna to send the signal back home](http://hveem.no/antenna.jpg)
+![The wireless antenna to send the signal back home](http://hveem.no/antenne.jpg)
 #### The Raspberry PI connected to a wireless repeater, a web camera and the weather station console
 ![The weather station console and raspberry pi](http://hveem.no/weatherconsole.jpg)
 
