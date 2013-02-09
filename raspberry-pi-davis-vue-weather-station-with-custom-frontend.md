@@ -9,7 +9,7 @@ The reason for building my own frontend is simply that I find all the free softw
 
 *    **Raspbery PI** for fetching data from weather station, grabbing pictures from web camera and pushing to the web.
 *    **A weaher station** (This guide is using Davis Vantage Vue)
-*    **A web and database server host** (With a public reacable address, runnig Ubuntu/Nginx/OpenResty/Postgresql)
+*    **A web and database server host** (With a public reacable address, running Ubuntu/Nginx/OpenResty/Postgresql)
 *    **A web camera**, for still images and timelapse (I bought a Microsoft LifeCam Studio HD)
 
 ## Components
@@ -171,6 +171,6 @@ Read its own [Readme](https://github.com/torhve/Amatyr/blob/master/README.md) ov
 ###### The Raspberry PI connected to a wireless repeater, a web camera and the weather station console
 ![The weather station console and raspberry pi](http://hveem.no/weatherconsole.jpg)
 
-You can visit the weather site at [yr.hveem.no](http://yr.hveem.no/)
+You can visit my own weather site at [yr.hveem.no](http://yr.hveem.no/)
 
 
