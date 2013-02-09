@@ -7,10 +7,10 @@ The reason for building my own frontend is simply that I find all the free softw
 
 ## Prequisites
 
-*    Raspbery PI for fetching data from weather station, grabbing pictures from web camera and pushing to the web.
-*    A weaher station (This guide is using Davis Vantage Vue)
-*    A web and database server host (With a public reacable address, runnig Ubuntu/Nginx/OpenResty/Postgresql)
-*    A web camera, for still images and timelapse (I bought a Microsoft LifeCam Studio HD)
+*    **Raspbery PI** for fetching data from weather station, grabbing pictures from web camera and pushing to the web.
+*    **A weaher station** (This guide is using Davis Vantage Vue)
+*    **A web and database server host** (With a public reacable address, runnig Ubuntu/Nginx/OpenResty/Postgresql)
+*    **A web camera**, for still images and timelapse (I bought a Microsoft LifeCam Studio HD)
 
 ## Components
 
