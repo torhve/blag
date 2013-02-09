@@ -7,10 +7,10 @@ The reason for building my own frontend is simply that I find all the free softw
 
 ## Prequisites
 
-*    Raspbery PI
-*    A weaher station (I'm using Davis Vue)
-*    A web and database server host
-*    A web camera
+*    Raspbery PI for fetching data from weather station, grabbing pictures from web camera and pushing to the web.
+*    A weaher station (This guide is using Davis Vantage Vue)
+*    A web and database server host (With a public reacable address, runnig Ubuntu/Nginx/OpenResty/Postgresql)
+*    A web camera, for still images and timelapse (I bought a Microsoft LifeCam Studio HD)
 
 ## Components
 
@@ -18,11 +18,11 @@ The reason for building my own frontend is simply that I find all the free softw
 *   Openvpn for secure transfer to web/database server
 *   Weewx
 *   some python glue
-*   my weather frontend in lua+postgresl (AmatYr) running on a remote web server
-
+*   my weather frontend in lua+postgresl [AmatYr](http://github.com/torhve/amatyr) running on a web server
 
 ## Installation
 
+The guide is a bit terse and written in a style that expects familiarity with linux, and will only list the specifics.
 
 #### Log in to raspberry PI
 Install all the dependencies. Some of these are only extra deps required of weewx if you intend to use its own weather page generation. I believe you can skip cheetah, imaging and pyephem.
@@ -153,7 +153,14 @@ Alter pga_hba.conf to allow connection for IP
 
 #### Start weewx and check that it's logging OK
 
+You should see successful pushes to database in the logfile after you run these commands:
+
+    service weewx start
+    tail -f /var/log/messages
+
 #### Install [AmatYr](http://github.com/torhve/amatyr) on the web server
+
+Read its own [Readme](https://github.com/torhve/Amatyr/blob/master/README.md) over at github. Fair warning, project is still in a bit of flux so expect some errors in the doc.
 
 ## A few pictures of the setup
 
