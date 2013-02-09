@@ -50,7 +50,6 @@ Find the latest wersion from weewx download page.
     cd /home/weewx
     sudo chown -R pi /home/weewx 
 
-
 Configure weewx to match your needs and wants
 
     vim weewx.conf
@@ -64,26 +63,21 @@ We also need our specific database setup for amatyr frontend
     [[archive_psql]]
         host = 10.9.36.1
         user = wwex
-        password = ww3xww3x
+        password = wwexwwex
         database = weewx
         driver = weedb.postgresql
 
     [[stats_psql]]
         host = 10.9.36.1
         user = weewx
-        password = weewx
+        password = wwexwwex
         database = stats
         driver = weedb.postgresql
-
-
-
-
 
 You can do additonal davis specific settings with the next command.
 I set the archive interval to 60 seconds to log to database every 60 seconds.
 
     ./bin/config_vp.py weewx.conf --help
-
 
 Configure weewx to start on boot
 
@@ -91,8 +85,6 @@ Configure weewx to start on boot
     sudo chmod +x /etc/init.d/weewx 
     sudo update-rc.d weewx defaults 98 
     sudo /etc/init.d/weewx start
-
-
 
 1. Install and configure openvpn server on the web server
 
@@ -159,11 +151,11 @@ Alter pga_hba.conf to allow connection for IP
 
 ## A few pictures of the setup
 
-#### My dad installing the weather sensore suite
+###### My dad installing the weather sensore suite
 ![The weather station sensor](http://hveem.no/davis.jpg)
-#### The wireless antenna for sending the signal to the internets
+###### The wireless antenna for sending the signal to the internets
 ![The wireless antenna to send the signal back home](http://hveem.no/antenne.jpg)
-#### The Raspberry PI connected to a wireless repeater, a web camera and the weather station console
+###### The Raspberry PI connected to a wireless repeater, a web camera and the weather station console
 ![The weather station console and raspberry pi](http://hveem.no/weatherconsole.jpg)
 
 You can visit the weather site at [yr.hveem.no](http://yr.hveem.no/)
