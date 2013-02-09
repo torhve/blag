@@ -1,7 +1,7 @@
 # My weather station project
 
 This page is the documentation for how I set up my weather station with my home made front end for modern HTML5 visualizations.
-The reason for building my own frontend is simply that I find all the free software for weather displays very lacking in presentation and features. I built my own frontend with goals of being responsive, so both small (mobile) and huge screens would get pretty graphs. All the layout is thus responsive design, with SVG vectorized graphics for the visualizations. There's also some JavaScript to detect screen size and make some adjumestments to the page to get it all to work smoothly on all screen sizes.
+The reason for building my own frontend is simply that I find all the free software for weather displays very lacking in presentation and features. I built my own frontend with goals of being responsive, so both small (mobile) and huge screens would get pretty graphs. All the layout is thus responsive design, with SVG vectorized graphics for the visualizations. There's also some JavaScript to detect screen size and make some adjumestments to the page to get it all to work smoothly on all screen sizes. The frontend is still very much a work in progress, but supports the most critical features of displaying live current weather and different graphs of historic data, with records.
 
 *Note:* This document is a work in progress and will have a few weak parts until I have worked out a few kinks, etc.
 
