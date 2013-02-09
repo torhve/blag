@@ -5,24 +5,24 @@ The document is a work in progress and will have a few weak parts until I have w
 
 ## Prequisites
 
-*    Raspbery PI
-*    A weaher station (I'm using Davis Vue)
-*    A web and database server host
-*    A web camera
+####    Raspbery PI
+####    A weaher station (I'm using Davis Vue)
+####    A web and database server host
+####    A web camera
 
 ## Components
 
-*   Raspbian
-*   Openvpn for secure transfer to web/database server
-*   Weewx
-*   some python glue
-*   my weather frontend in lua+postgresl (AmatYr) running on a remote web server
+####   Raspbian
+####   Openvpn for secure transfer to web/database server
+####   Weewx
+####   some python glue
+####   my weather frontend in lua+postgresl (AmatYr) running on a remote web server
 
 
 ## Installation
 
 
-* Log in to raspberry PI
+#### Log in to raspberry PI
 Install all the dependencies
 
     sudo apt-get install python-configobj 
@@ -36,7 +36,7 @@ Install all the dependencies
     sudo apt-get install python-pip
     sudo pip install pyephem
 
-* Install weewx
+#### Install weewx
 
 Find the latest wersion from weewx download page.
 
@@ -45,7 +45,7 @@ Find the latest wersion from weewx download page.
     cd weewx*
     sudo ./setup.py install
 
-* Configure weewx
+#### Configure weewx
 
     cd /home/weewx
     sudo chown -R pi /home/weewx 
@@ -86,7 +86,7 @@ Configure weewx to start on boot
     sudo update-rc.d weewx defaults 98 
     sudo /etc/init.d/weewx start
 
-* Install and configure openvpn server on the web server
+#### Install and configure openvpn server on the web server
 
     apt-get install openvpn
     mkdir /etc/openvpn/keys
@@ -104,7 +104,7 @@ Configure weewx to start on boot
     fast-io
     EOF
 
-* Install and configure openvpn client on the raspberry
+#### Install and configure openvpn client on the raspberry
 
     sudo apt-get install openvpn
     sudo mkdir /etc/openvpn/keys
@@ -130,7 +130,7 @@ Set client conf
     fast-io
     EOF
 
-* Install postgresql database on the webserver
+#### Install postgresql database on the webserver
 
     sudo apt-get install postgresql-server
     sudo -u postgresql psql postgres
@@ -145,9 +145,9 @@ Alter pga_hba.conf to allow connection for IP
 
     host all   all *.9.36.2 md5
 
-* Start weewx and check that it's logging OK
+#### Start weewx and check that it's logging OK
 
-* Install [AmatYr](http://github.com/torhve/amatyr) on the web server
+#### Install [AmatYr](http://github.com/torhve/amatyr) on the web server
 
 ## A few pictures of the setup
 
