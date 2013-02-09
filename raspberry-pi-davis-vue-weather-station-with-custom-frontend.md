@@ -22,7 +22,7 @@ The document is a work in progress and will have a few weak parts until I have w
 ## Installation
 
 
-1. Log in to raspberry PI
+* Log in to raspberry PI
 Install all the dependencies
 
     sudo apt-get install python-configobj 
@@ -36,16 +36,16 @@ Install all the dependencies
     sudo apt-get install python-pip
     sudo pip install pyephem
 
-1. Install weewx
+* Install weewx
 
 Find the latest wersion from weewx download page.
 
-    wget -O weewx.tar.gz http://sourceforge.net/projects/weewx/files/weewx-2.1.1.tar.gz/download
+    wget -O weewx.tar.gz http://sourceforge.net/projects/weewx/files/weewx-2.*1.tar.gz/download
     tar xvfz weewx.tar.gz
     cd weewx*
     sudo ./setup.py install
 
-1. Configure weewx
+* Configure weewx
 
     cd /home/weewx
     sudo chown -R pi /home/weewx 
@@ -61,14 +61,14 @@ We also need our specific database setup for amatyr frontend
     stats_database = stats_psql
 
     [[archive_psql]]
-        host = 10.9.36.1
+        host = *.9.36.1
         user = wwex
         password = wwexwwex
         database = weewx
         driver = weedb.postgresql
 
     [[stats_psql]]
-        host = 10.9.36.1
+        host = *.9.36.1
         user = weewx
         password = wwexwwex
         database = stats
@@ -86,7 +86,7 @@ Configure weewx to start on boot
     sudo update-rc.d weewx defaults 98 
     sudo /etc/init.d/weewx start
 
-1. Install and configure openvpn server on the web server
+* Install and configure openvpn server on the web server
 
     apt-get install openvpn
     mkdir /etc/openvpn/keys
@@ -94,9 +94,9 @@ Configure weewx to start on boot
 
     cat <<EOF >> /etc/openvpn/raspberry.conf
     dev tun
-    ifconfig 10.9.36.1 10.9.36.2
+    ifconfig *.9.36.1 10.9.36.2
     secret keys/raspberry.key
-    keepalive 10 60
+    keepalive * 60
     ping-timer-rem
     persist-tun
     persist-key
@@ -104,7 +104,7 @@ Configure weewx to start on boot
     fast-io
     EOF
 
-1. Install and configure openvpn client on the raspberry
+* Install and configure openvpn client on the raspberry
 
     sudo apt-get install openvpn
     sudo mkdir /etc/openvpn/keys
@@ -118,9 +118,9 @@ Set client conf
     cat <<EOF >> /etc/openvpn/raspberry.conf
     remote web-server-ip
     dev tun
-    ifconfig 10.9.36.2 10.9.36.1
+    ifconfig *.9.36.2 10.9.36.1
     secret keys/raspberry.key
-    keepalive 10 60
+    keepalive * 60
     ping-timer-rem
     persist-tun
     persist-key
@@ -130,7 +130,7 @@ Set client conf
     fast-io
     EOF
 
-1. Install postgresql database on the webserver
+* Install postgresql database on the webserver
 
     sudo apt-get install postgresql-server
     sudo -u postgresql psql postgres
@@ -139,15 +139,15 @@ Set client conf
 
 Alter posgresql.conf to listen to IP
     
-    listen_addresses = '127.0.0.1,10.9.36.1'        # what IP address(es) to listen on;
+    listen_addresses = '*7.0.0.1,10.9.36.1'        # what IP address(es) to listen on;
 
 Alter pga_hba.conf to allow connection for IP
 
-    host all   all 10.9.36.2 md5
+    host all   all *.9.36.2 md5
 
-1. Start weewx and check that it's logging OK
+* Start weewx and check that it's logging OK
 
-1. Install [AmatYr](http://github.com/torhve/amatyr) on the web server
+* Install [AmatYr](http://github.com/torhve/amatyr) on the web server
 
 ## A few pictures of the setup
 
