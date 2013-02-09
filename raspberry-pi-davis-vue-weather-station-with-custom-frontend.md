@@ -66,14 +66,14 @@ We also need our specific database setup for amatyr frontend. Note that my patch
     stats_database = stats_psql
 
     [[archive_psql]]
-        host = *.9.36.1
+        host = 10.9.36.1
         user = wwex
         password = wwexwwex
         database = weewx
         driver = weedb.postgresql
 
     [[stats_psql]]
-        host = *.9.36.1
+        host = 10.9.36.1
         user = weewx
         password = wwexwwex
         database = stats
@@ -100,9 +100,9 @@ Configure weewx to start on boot
 
     cat <<EOF >> /etc/openvpn/raspberry.conf
     dev tun
-    ifconfig *.9.36.1 10.9.36.2
+    ifconfig 10.9.36.1 10.9.36.2
     secret keys/raspberry.key
-    keepalive * 60
+    keepalive 1 60
     ping-timer-rem
     persist-tun
     persist-key
@@ -124,9 +124,9 @@ Set client conf
     cat <<EOF >> /etc/openvpn/raspberry.conf
     remote web-server-ip
     dev tun
-    ifconfig *.9.36.2 10.9.36.1
+    ifconfig 10.9.36.2 10.9.36.1
     secret keys/raspberry.key
-    keepalive * 60
+    keepalive 1 60
     ping-timer-rem
     persist-tun
     persist-key
@@ -145,11 +145,11 @@ Set client conf
 
 Alter posgresql.conf to listen to IP
     
-    listen_addresses = '*7.0.0.1,10.9.36.1'        # what IP address(es) to listen on;
+    listen_addresses = '17.0.0.1,10.9.36.1'        # what IP address(es) to listen on;
 
 Alter pga_hba.conf to allow connection for IP
 
-    host all   all *.9.36.2 md5
+    host all   all 10.9.36.2 md5
 
 #### Start weewx and check that it's logging OK
 
