@@ -272,3 +272,5 @@ And here follows the script to make this happen:
      
 ##### Jitsi client showing the chat session with the Salt XMPP gateway
 ![Chat](http://hveem.no/ss/salt-xmpp.png)
+
+Source: <https://github.com/torhve/salt-xmpp>
