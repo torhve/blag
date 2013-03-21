@@ -70,7 +70,14 @@ Install XMPP library for python
 
 ## The Salt XMPP gateway script
 
-Note: This is just a demo, and not meant for production usage. The gateway has one command *minions* to list all the minions. All other text is treated as a function, e.g. *test.version*
+*Note*: This is just a demo, and not meant for production usage. 
+The gateway script fires up a master bot and 1 minion bot for every minion. It will start off by trying to register a new account in-band for every minion and then send a message to the specified admin reporting in that it's ready for duty.
+The gateway has one command *minions* to list all the minions. All other text is treated as a function, e.g. *test.version*
+If you talk to a minion, it will run the command for that minion, if you talk to the master, it will run command on all minions.
+
+Screenshots below!
+
+### Installation
 
 First adapt my configuration into your needs and save it to the file config.yaml:
 
@@ -83,112 +90,99 @@ First adapt my configuration into your needs and save it to the file config.yaml
     username: 'salt@salt.demo.no'       
     password: '66Kjensleuttrykket'      
 
-And here follows the script to make this happen:
 
-> salt-xmpp.py
+Then I wrote a simple Salt REST API python client. It's inspired by the pepper utility that will eventually do that, but it's not finished yet.
 
-    import sys
-    import os
-    import xmpp
+> saltrest.py
 
-    import json
     import urllib
     import urllib2
     from cookielib import CookieJar
-    import yaml
-
-    cj = CookieJar()
-    root = os.path.dirname(os.path.abspath(__file__))
+    import json
 
     HEADERS = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
     }
-    CONFIG = yaml.safe_load(file(root+'/config.yaml').read())
-    TOKEN = None
-
+    cj = CookieJar()
     class MyHTTPRedirectHandler(urllib2.HTTPRedirectHandler):
         def http_error_302(self, req, fp, code, msg, headers):
-            TOKEN = headers['X-Auth-Token']
-            HEADERS['X-Auth-Token'] = TOKEN
+            # patch headers to include salt token
+            token = headers['X-Auth-Token']
+            HEADERS['X-Auth-Token'] = token
             return urllib2.HTTPRedirectHandler.http_error_302(self, req, fp, code, msg, headers)
 
         http_error_301 = http_error_303 = http_error_307 = http_error_302
-
     cookieprocessor = urllib2.HTTPCookieProcessor(cj)
 
     opener = urllib2.build_opener(MyHTTPRedirectHandler, cookieprocessor)
     urllib2.install_opener(opener)
 
-    MINIONS = []
+    class SaltREST(object):
 
-    def get_minions():
+        def __init__(self, config):
+            self.config = config
+            self.login()
 
-        lowstate = [{
-            'client': 'local',
-            'tgt': '*',
-            'fun': 'test.version',
-        }]
+        def login(self):
+            lowstate_login =[{
+                'eauth': 'pam',
+                'username': self.config['saltuser'],
+                'password': self.config['saltpass'],
+            }]
+            postdata = json.dumps(lowstate_login).encode()
 
-        lowstate_login =[{
-            'eauth': 'pam',
-            'username': CONFIG['saltuser'],
-            'password': CONFIG['saltpass'],
-        }]
+            req = urllib2.Request(self.config['saltapiurl']+'login', postdata, HEADERS)
+            f = urllib2.urlopen(req)
+            return f.read()
 
-        postdata = json.dumps(lowstate_login).encode()
+        def get_minions(self):
 
-        req = urllib2.Request(CONFIG['saltapiurl']+'login', postdata, HEADERS)
-        f = urllib2.urlopen(req)
-        #print "Salt says: %s" % f.read()
+            lowstate = [{
+                'client': 'local',
+                'tgt': '*',
+                'fun': 'test.version',
+            }]
 
-        postdata = json.dumps(lowstate).encode()
-        req = urllib2.Request(CONFIG['saltapiurl']+'', postdata, HEADERS)
-        f = urllib2.urlopen(req)
-        ret = json.loads(f.read())
-        return ret
+            postdata = json.dumps(lowstate).encode()
+            req = urllib2.Request(self.config['saltapiurl']+'', postdata, HEADERS)
+            f = urllib2.urlopen(req)
+            ret = json.loads(f.read())
+            # Format minions as a list with minion FQDNs
+            ret = [x.replace(self.config['stripdomain'], '') for x in ret['return'][0].keys()]
+            return ret
 
-    def salt_req(lowstate):
-        postdata = json.dumps(lowstate).encode()
-        req = urllib2.Request(CONFIG['saltapiurl'], postdata, HEADERS)
-        f = urllib2.urlopen(req)
-        ret = json.loads(f.read())
-        return ret
+        def call(self, lowstate):
+            postdata = json.dumps(lowstate).encode()
+            req = urllib2.Request(self.config['saltapiurl'], postdata, HEADERS)
+            f = urllib2.urlopen(req)
+            ret = json.loads(f.read())
+            return ret
 
-    class Bot:
+This is the botherder script:
 
-        def __init__(self,jabber,remotejid):
-            self.jabber = jabber
-            self.remotejid = remotejid
+> salt-xmpp.py
 
-        def register_handlers(self):
-            self.jabber.RegisterHandler('message',self.xmpp_message)
+    import sys
+    import os
+    import xmpp
+    from threading import Thread, Event
+    import yaml
 
-        def xmpp_message(self, con, event):
-            type = event.getType()
-            fromjid = event.getFrom().getStripped()
-            if type in ['message', 'chat', None] and fromjid == self.remotejid:
-                sys.stdout.write(event.getBody() + '\n')
+# Our Salt REST API
+    import saltrest
 
-        def stdio_message(self, message):
-            m = xmpp.protocol.Message(to=self.remotejid,body=message,typ='chat')
-            self.jabber.send(m)
-            pass
+# flag to tell all threads to stop
+    _stop = Event()
 
-        def xmpp_connect(self):
-            con=self.jabber.connect()
-            if not con:
-                sys.stderr.write('could not connect!\n')
-                return False
-            sys.stderr.write('connected with %s\n'%con)
-            auth=self.jabber.auth(jid.getNode(),jidparams['password'],resource=jid.getResource())
-            if not auth:
-                sys.stderr.write('could not authenticate!\n')
-                return False
-            sys.stderr.write('authenticated using %s\n'%auth)
-            self.register_handlers()
-            return con
+
+    def single_node_xmpp_outputter(ret):
+        ret = ret['return'][0]
+        fret = ''
+        for host, val in ret.items():
+            fret += '%s\n' %val
+        return fret
 
     def xmpp_outputter(ret):
         ret = ret['return'][0]
@@ -198,31 +192,49 @@ And here follows the script to make this happen:
         return fret
 
 
-    def messageCB(conn, mess):
+    def masterMessageCB(conn, mess):
         text=mess.getBody()
         user=mess.getFrom()
         jid = xmpp.protocol.JID(user).getStripped()
         print 'Got command:', text
         if jid == CONFIG['xmppadminuser']:
             if text == 'minions':
-                conn.send(xmpp.Message(mess.getFrom(), ','.join([x.replace(CONFIG['stripdomain'], '') for x in MINIONS['return'][0].keys()])))
+                # make a nice list
+                conn.send(xmpp.Message(mess.getFrom(), ', '.join(MINIONS)))
             else:
                 lowstate = [{
                     'client': 'local',
                     'tgt': '*',
                     'fun': text,
                 }]
-                ret = xmpp_outputter(salt_req(lowstate))
+                ret = xmpp_outputter(salt.call(lowstate))
                 conn.send(xmpp.Message(mess.getFrom(), ret) )
-            
-    def startbot(username, password):
 
+
+    def make_msg_handler(tgt):
+        def minionCB(dispatcher, mess):
+            print '[%s] %s' % (dispatcher._owner.Resource, mess)
+            text=mess.getBody()
+            user=mess.getFrom()
+            jid = xmpp.protocol.JID(user).getStripped()
+            if jid == CONFIG['xmppadminuser']:
+                lowstate = [{
+                    'client': 'local',
+                    'tgt': tgt + CONFIG['stripdomain'],
+                    'fun': text,
+                }]
+                ret = single_node_xmpp_outputter(salt.call(lowstate))
+                dispatcher.send(xmpp.Message(mess.getFrom(), ret) )
+        return minionCB
+
+
+    def startminion(username, password):
         jid=xmpp.protocol.JID(username)
         cli=xmpp.Client(jid.getDomain(), debug=False)
         cli.connect()
 
 
-        should_register = False
+        should_register = True
         if should_register:
             # getRegInfo has a bug that puts the username as a direct child of the
             # IQ, instead of inside the query element.  The below will work, but
@@ -237,9 +249,28 @@ And here follows the script to make this happen:
                                       jid.getDomain(),
                                       {'username':jid.getNode(),
                                        'password':password}):
-                sys.stderr.write("Success!\n")
+                sys.stderr.write("Successfully register: %s!\n" %jid.getNode())
             else:
-                sys.stderr.write("Error!\n")
+                sys.stderr.write("Error while registering: %s\n" %jid.getNode())
+
+        authres=cli.auth(jid.getNode(),password)
+        if not authres:
+            print "Unable to authorize %s - check login/password." %jid.getNode()
+            return None
+            #sys.exit(1)
+        if authres<>'sasl':
+            print "Warning: unable to perform SASL auth.  Old authentication method used!"
+        cli.RegisterHandler('message', make_msg_handler(jid.getNode()))
+        cli.sendInitPresence()
+        cli.send(xmpp.protocol.Message(CONFIG['xmppadminuser'],'Hello, Salt minion %s reporting for duty.' %jid.getNode()))
+
+        return cli
+            
+    def startmaster(username, password):
+
+        jid=xmpp.protocol.JID(username)
+        cli=xmpp.Client(jid.getDomain(), debug=False)
+        cli.connect()
 
         authres=cli.auth(jid.getNode(),password)
         if not authres:
@@ -247,30 +278,47 @@ And here follows the script to make this happen:
             sys.exit(1)
         if authres<>'sasl':
             print "Warning: unable to perform SASL auth.  Old authentication method used!"
-        cli.RegisterHandler('message',messageCB)
+        cli.RegisterHandler('message', masterMessageCB)
         cli.sendInitPresence()
         cli.send(xmpp.protocol.Message(CONFIG['xmppadminuser'],'Salt gateway ready for action.'))
-        GoOn(cli)
-
-    def StepOn(conn):
-        try:
-            conn.Process(1)
-        except KeyboardInterrupt: return 0
-        return 1
-
-    def GoOn(conn):
-        while StepOn(conn): pass
-
-    if __name__ == '__main__':
-        MINIONS = get_minions()
-        username = CONFIG['username']
-        password = CONFIG['password']
-        startbot(username, password)
+        return cli
+        
+    def process_until_disconnect(bot):
+        ret = -1
+        while ret != 0 and not _stop.is_set():
+            ret = bot.Process(1)
 
 
-    > 
+    root = os.path.dirname(os.path.abspath(__file__))
+    CONFIG = yaml.safe_load(file(root+'/config.yaml').read())
+    salt = saltrest.SaltREST(CONFIG)
+# Get minions so we can create bots, uses test.ping to get minion list
+    MINIONS = salt.get_minions()
+    username = CONFIG['username']
+    password = CONFIG['password']
+    _stop.clear()
+
+# Start master
+    masterbot = startmaster(username, password)
+    try:
+        Thread(target=process_until_disconnect, args=(masterbot,)).start()
+        for minion in MINIONS:
+            minionbot = startminion(minion+'@salt.idrift.no', 'sharedbotpwfordemo')
+            if minionbot:
+                Thread(target=process_until_disconnect, args=(minionbot,)).start()
+        # Block main thread waiting for KeyboardInterrupt
+        #while True:
+        #    pass
+    except KeyboardInterrupt:
+        _stop.set()
+        print "Bye!"
+
+
+
      
 ##### Jitsi client showing the chat session with the Salt XMPP gateway
-![Chat](http://hveem.no/ss/salt-xmpp.png)
+![Master chat](http://hveem.no/ss/salt-xmpp.png)
+##### Jitsi client showing the chat session with a salt minion
+![Minion chat](http://hveem.no/ss/salt-xmpp-minion.png)
 
 Source: <https://github.com/torhve/salt-xmpp>
