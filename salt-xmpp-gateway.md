@@ -74,6 +74,7 @@ Install XMPP library for python
 The gateway script fires up a master bot and 1 minion bot for every minion. It will start off by trying to register a new account in-band for every minion and then send a message to the specified admin reporting in that it's ready for duty.
 The gateway has one command *minions* to list all the minions. All other text is treated as a function, e.g. *test.version*
 If you talk to a minion, it will run the command for that minion, if you talk to the master, it will run command on all minions.
+I have no idea on how this scales, as python will start a thread for each minion, eventually this will all break. My tests are for a small set of minions. 
 
 Screenshots below!
 
