@@ -170,10 +170,10 @@ This is the botherder script:
     from threading import Thread, Event
     import yaml
 
-# Our Salt REST API
+    # Our Salt REST API
     import saltrest
 
-# flag to tell all threads to stop
+    # flag to tell all threads to stop
     _stop = Event()
 
 
@@ -292,13 +292,13 @@ This is the botherder script:
     root = os.path.dirname(os.path.abspath(__file__))
     CONFIG = yaml.safe_load(file(root+'/config.yaml').read())
     salt = saltrest.SaltREST(CONFIG)
-# Get minions so we can create bots, uses test.ping to get minion list
+    # Get minions so we can create bots, uses test.ping to get minion list
     MINIONS = salt.get_minions()
     username = CONFIG['username']
     password = CONFIG['password']
     _stop.clear()
 
-# Start master
+    # Start master
     masterbot = startmaster(username, password)
     try:
         Thread(target=process_until_disconnect, args=(masterbot,)).start()
