@@ -1,6 +1,6 @@
 # Reusing munin plugins to get metrics into graphite
 
-This is sort of part #3 of my previous blog articles [vm monitoring using salt and cubism](/vm-monitoring-using-salt-and-cubism.md) and [salt-returner-for-carbon](/salt-returner-for-carbon).
+This is sort of part #3 of my previous blog articles [vm monitoring using salt and cubism](/vm-monitoring-using-salt-and-cubism) and [salt-returner-for-carbon](/salt-returner-for-carbon).
 The new cog in the machine is getting metrics from [Munin](http://munin-monitoring.org/http://munin-monitoring.org/) since I already use Munin alot in my systems.
 
 ## Munin strengths and weaknesses
