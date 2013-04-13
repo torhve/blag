@@ -8,13 +8,20 @@ One problem with numbers is that they can be hard to read in a hurried situation
 
 Lets check how many CPUs these minions have:
 ![Blocks](http://hveem.no/ss/salt-blocks-run-1.png)
+
 Lets check the uptime:
+
 ![Blocks](http://hveem.no/ss/salt-blocks-run-3.png)
+
 How many connections are opened:
+
 ![Blocks](http://hveem.no/ss/salt-blocks-run-4.png)
+
 What is the Load ? 
 *Oops*, looks like we have discovered a problem!
+
 ![Blocks](http://hveem.no/ss/salt-blocks-run-2.png)
+
 Now that we have discovered the proble, monitor it until problem is resolved by using the *watch* command.
 
 ![Blocks](http://hveem.no/ss/salt-blocks-run-5.png)
