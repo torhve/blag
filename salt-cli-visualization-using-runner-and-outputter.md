@@ -22,7 +22,7 @@ What is the Load ?
 
 ![Blocks](http://hveem.no/ss/salt-blocks-run-2.png)
 
-Now that we have discovered the proble, monitor it until problem is resolved by using the *watch* command.
+Now that we have discovered the problem, monitor the load until problem is resolved by using the *watch* command.
 
 ![Blocks](http://hveem.no/ss/salt-blocks-run-5.png)
 
