@@ -15,7 +15,7 @@ Another common way of being connected to IRC all the time is to use a *bouncer* 
 The software
 ------------
 
-  > [WeeChat][1] is a fast, light and extensible CLI chat client. It runs on many platforms like Linux, Unix, BSD, GNU Hurd, Mac OS X and Windows. It can support multiple protocols, is modular, has support for plugin in many languages (C, Python, Perl, Ruby, Lua, Tcl and Scheme), free software (GPLv3), strong and active community.
+> [WeeChat][1] is a fast, light and extensible CLI chat client. It runs on many platforms like Linux, Unix, BSD, GNU Hurd, Mac OS X and Windows. It can support multiple protocols, is modular, has support for plugin in many languages (C, Python, Perl, Ruby, Lua, Tcl and Scheme), free software (GPLv3), strong and active community.
 
 The biggest reason why we use WeeChat as backend client for a HTML5 frontend is that its relay plugin allows us to directly connect from the browser using Websockets. This means that the client does not need a special "backend service", as all that is provided by the IRC client itself.
   
