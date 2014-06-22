@@ -84,4 +84,4 @@ Please join `#weechat` on Freenode if you want to chat with the developers of We
   [1]: http://weechat.org
   [2]: http://cormier.github.io/glowing-bear/
   [3]: http://hveem.no/ss/weechat-web-client720.png
-  [4]: http://hveem.no/ss/weechat-web-android720.png
+  [4]: http://hveem.no/ss/gb-mobile-new.png
