@@ -60,7 +60,7 @@ This guide assumes you already have a server available where you can run WeeChat
 
 **Connect the web client**
  
-  1. Navigate to the official hosted URL <http://cormier.github.io/glowing-bear/>. (You can also clone the GitHub repository <https://github.com/cormier/glowing-bear/> and host it yourself, it is only static files, no server setup required.)
+  1. Navigate to the official hosted URL <http://glowing-bear.github.io/glowing-bear/>. (You can also clone the GitHub repository <https://github.com/glowing-bear/glowing-bear/> and host it yourself, it is only static files, no server setup required.)
   2. Enter the hostname of your server running WeeChat
   3. Enter the port you selected in the relay setup.
   4. Enter the password you chose in the relay setup.
