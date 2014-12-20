@@ -2,7 +2,9 @@ Intercepting Cubesensors sensor data
 ====================================
 
 So I purchased these [CubeSensors](https://cubesensors.com/) a while ago to monitor my home environment. As many other geeks I like playing around with numbers and using tools to visualize them in the manner I please. When the package from them (finally) arrived I was a bit let down to discover they didn't have a good API to get the raw data from them. They did however provide access to a beta API which I requested access to.
+
 ![What a cube looks like](http://blog.cubesensors.com/wp-content/uploads/2014/11/mycubes-home.jpeg)
+
 Preferably, in my opinion, the base station should come with a web server with a documented API that you can extract numbers from directly on the LAN. This means you could use the devices when you aren't even connected to the internet and allows for greater flexibility in general.
 
 After poking around a bit on my network I discovered from the MAC-address of the base station's network card that the base station is a [Raspberry PI](http://www.raspberrypi.org/help/what-is-a-raspberry-pi/) with a custom card attached that handles the [ZigBee protocol](http://en.wikipedia.org/wiki/ZigBee) the base station uses to connect to the cubes. At this point I was tempted to unscrew the screws and detach the storage card from the Raspberry PI and try to get access to the box and inject my own software into the data stream so I could extract the raw numbers and put them into my own database. Instead I started a network sniffer to see what the base station is up to.
