@@ -98,9 +98,9 @@ It's important to note that the addresses your clients will be reachable publica
     # Default policy DROP
     ip6tables -P FORWARD DROP
     # Allow established connections
-    ip6tables -m state --state RELATED,ESTABLISHED -j ACCEPT
+    ip6tables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
     # Accept packets FROM LAN to everywhere
-    ip6tables -i eth1 -j ACCEPT
+    ip6tables -I FORWARD -i eth1 -j ACCEPT
 
 These settings will in effect block everything from the internets to your LAN (except answer to traffic you requests) but allow clients access to WAN.    
  
