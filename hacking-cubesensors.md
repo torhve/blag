@@ -112,6 +112,7 @@ Then I had to write the `intercept.lua` to parse the JSON data and save it to my
 The raw numbers were a bit strange, so I did some googling and found [this blog post](http://www.visionect.com/blog/raspberry-pi-e-paper/) that apparently got some math that cubesensors need to transform them into human readable numbers. I feel like CubeSensors should provide this information somewhere, or maybe they do, but I could not find anything anywhere. The transformation is done in the interceptor before saving them to SQL so there's less work for the API later.
 
 Now that I have access to the raw numbers I can easily build my own frontends and easily access them however I please. One of the ways I created to display the data is a HTML5 app that looks like this:
+
 ![Only showing parts of the graphs](http://hveem.no/ss/cubeapp.png)
 
 What I need now is something to automatically open  windows to let in fresh air when it gets too bad 😜
