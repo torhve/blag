@@ -34,23 +34,23 @@ Here's the snippet of configuration that I needed to get a nginx to think it's d
     # use google resolver to resolve the real cubesensors host using DNS.
     resolver 8.8.8.8;
     server {
-    ...
-    # instruct nginx who it is.
-    server_name  data.cubesensors.com;
-    ...
-    # all the API requests starts with v1, this might have to be updated later if they change their API URLs
-    location /v1/ {
-    # For safety we only allow requests from the real device
-        allow base.station.ip.network/24;
-        # Or localhost
-        allow 127.0.0.1;
-        deny all;
-        # This is the fun part, we hook the Nginx access handler to intercept the request before it travels over the wire.
-        access_by_lua_file '/home/cubesensor/intercept.lua';
-        # After Lua had its turn, lets just proxy the original request, so we can also send the data to cubesensors to use their app.
-        proxy_pass http://data.cubesensors.com/v1/;
+        ...
+        # instruct nginx who it is.
+        server_name  data.cubesensors.com;
+        ...
+        # all the API requests starts with v1, this might have to be updated later if they change their API URLs
+        location /v1/ {
+            # For safety we only allow requests from the real device
+            allow base.station.ip.network/24;
+            # Or localhost
+            allow 127.0.0.1;
+            deny all;
+            # This is the fun part, we hook the Nginx access handler to intercept the request before it travels over the wire.
+            access_by_lua_file '/home/cubesensor/intercept.lua';
+            # After Lua had its turn, lets just proxy the original request, so we can also send the data to cubesensors to use their app.
+            proxy_pass http://data.cubesensors.com/v1/;
+        }
     }
-}
 
 To trick the base station to send data to my web proxy I activated this iptables firewall rule:
  
