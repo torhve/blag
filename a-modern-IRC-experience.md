@@ -1,5 +1,5 @@
 A modern IRC experience
----------------------
+=======================
 
 IRC is still the king for group chat in online communities, but it has a few problems when comparing to "modern" internet services. Historically, the most common solution to being connected and not miss messages is to have a CLI client (ircII, BitchXI, irssi, WeeChat) running on a computer always in a terminal multiplexer (screen, tmux) and then connect to that using SSH.
 
