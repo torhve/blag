@@ -17,11 +17,13 @@ I discovered a few things:
 
 The data looks like this:
 
-    POST /v1/devices/base-station-id-redacted HTTP/1.1..Host: data.cubesensors.com..Accept-Encoding: identity..Content-Length: 464..Content-T
-    ype: application/json....{"firmware": 59, "data": [{"cube": "cubeid-redacted", "temp": 2199, "voc": 3098, "battery": 2376, "ligh
-    t": 3364, "firmware": 59, "humidity": 3339, "pressure": 1006, "voc_resistance": 75082, "noisedba": 47, "rssi": -63, "charging": 3
-    }, {"cube": "cube-id-redacted", "temp": 1600, "voc": 450, "battery": 2400, "light": 4094, "firmware": 59, "humidity": 4470, "pres
-    sure": 1006, "voc_resistance": 7904, "noisedba": 43, "rssi": -80, "charging": 3}], "time": 1419099276}
+    POST /v1/devices/base-station-id-redacted HTTP/1.1
+    Host: data.cubesensors.com
+    Accept-Encoding: identity
+    Content-Length: 464
+    Content-Type: application/json
+
+    {"firmware": 59, "data": [{"cube": "cubeid-redacted", "temp": 2199, "voc": 3098, "battery": 2376, "light": 3364, "firmware": 59, "humidity": 3339, "pressure": 1006, "voc_resistance": 75082, "noisedba": 47, "rssi": -63, "charging": 3}, {"cube": "cube-id-redacted", "temp": 1600, "voc": 450, "battery": 2400, "light": 4094, "firmware": 59, "humidity": 4470, "pressure": 1006, "voc_resistance": 7904, "noisedba": 43, "rssi": -80, "charging": 3}], "time": 1419099276}
 
 Then I had the idea for another solution to get what I wanted, to set up a web proxy that read that JSON data and manipulate it as I best see fit before it travels over the series of tubes to the cube cloud.
 
